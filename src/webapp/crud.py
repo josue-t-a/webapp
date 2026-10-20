@@ -7,7 +7,7 @@ from webapp.schemas import ItemCreate
 
 
 def create_item(db: Session, data: ItemCreate) -> Item:
-    item = Item(id=data.id, query=data.description)
+    item = Item(id=data.id, description=data.description)
     db.add(item)
     db.commit()
     db.refresh(item)
@@ -15,7 +15,7 @@ def create_item(db: Session, data: ItemCreate) -> Item:
 
 def get_items(db: Session) -> list[Item]:
     return list(
-        db.scalars(select(Item).order_by(Item.id).all())
+        db.scalars(select(Item).order_by(Item.id)).all()
     )
 
 def get_item(db: Session, item_id: int) -> Item | None:
