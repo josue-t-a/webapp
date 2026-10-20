@@ -22,3 +22,23 @@ def create_item(
             status_code=409,
             detail="El ID ya existe",
         )
+
+@router.get("", response_model=list[ItemResponse])
+def read_items(db: Session = Depends(get_db)):
+    return crud.get_items(db)
+
+
+@router.get("/{item_id}", response_model=ItemResponse)
+def read_item(
+    item_id: int,
+    db: Session = Depends(get_db),
+):
+    item = crud.get_item(db, item_id)
+
+    if item is None:
+        raise HTTPException(
+            status_code=404,
+            detail="Item no encontrado",
+        )
+
+    return item
