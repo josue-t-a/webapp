@@ -12,3 +12,7 @@ class ItemResponse(BaseModel):
 
     id: int
     description: str
+
+class ItemUpdate(BaseModel):
+    id: int
+    description: str
