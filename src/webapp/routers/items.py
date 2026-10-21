@@ -4,7 +4,7 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from webapp.database import get_db
-from webapp.schemas import ItemCreate, ItemResponse
+from webapp.schemas import ItemCreate, ItemResponse, ItemUpdate
 from webapp import crud
 
 router = APIRouter(prefix="/items", tags=["items"])
@@ -41,4 +41,19 @@ def read_item(
             detail="Item no encontrado",
         )
 
+    return item
+
+@router.put("", response_model=ItemResponse)
+def update_item(
+    data:ItemUpdate,
+    db: Session = Depends(get_db),
+):
+    item = crud.update_item(db, data)
+
+    if item is None:
+        raise HTTPException(
+            status_code=404,
+            detail="Item not found"
+        )
+    
     return item
