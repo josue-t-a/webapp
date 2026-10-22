@@ -14,5 +14,4 @@ class ItemResponse(BaseModel):
     description: str
 
 class ItemUpdate(BaseModel):
-    id: int
     description: str

@@ -43,12 +43,13 @@ def read_item(
 
     return item
 
-@router.put("", response_model=ItemResponse)
+@router.put("/{item_id}", response_model=ItemResponse)
 def update_item(
+    item_id: int,
     data:ItemUpdate,
     db: Session = Depends(get_db),
 ):
-    item = crud.update_item(db, data)
+    item = crud.update_item(db, item_id, data)
 
     if item is None:
         raise HTTPException(
