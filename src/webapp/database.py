@@ -13,6 +13,7 @@ conn_url = URL.create(
     database=os.getenv("DATABASE"),
     username=os.getenv("USERNAME"),
     host=os.getenv("HOSTNAME"),
+    port=os.getenv("PORT"),
     password=os.getenv("PASSWORD"),
     )
 
