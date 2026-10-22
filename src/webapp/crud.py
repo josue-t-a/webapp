@@ -31,3 +31,13 @@ def update_item(db:Session, data:ItemUpdate):
     db.refresh(item)
 
     return item
+
+def delete_item(db: Session, item_id: int):
+    item = db.get(Item, item_id)
+
+    if item is None:
+        return None
+
+    db.delete(item)
+    db.commit()
+    return item
