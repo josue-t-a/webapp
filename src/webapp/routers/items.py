@@ -57,3 +57,18 @@ def update_item(
         )
     
     return item
+
+@router.delete("/{item_id}", response_model=ItemResponse)
+def delete_item(
+    item_id:int,
+    db: Session = Depends(get_db),
+):
+    item = crud.delete_item(db, item_id)
+
+    if item is None:
+            raise HTTPException(
+                status_code=404,
+                detail="Item not found"
+            )
+
+    return item
